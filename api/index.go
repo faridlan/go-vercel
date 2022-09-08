@@ -3,9 +3,8 @@ package handler
 import (
 	"fmt"
 	"net/http"
-	"time"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World! %s", time.Now())
+	fmt.Fprintf(w, "<h1>Hello from Go!</h1>")
 }
