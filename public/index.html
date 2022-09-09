@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<style>
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+    
+    .bgimg {
+        /* background-image: url('forestbridge.jpg'); */
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        color: black;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 20px;
+    }
+    
+    .topleft {
+        position: absolute;
+        top: 0;
+        left: 16px;
+    }
+    
+    .bottomleft {
+        position: absolute;
+        bottom: 0;
+        left: 16px;
+    }
+    
+    .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    
+    hr {
+        margin: auto;
+        width: 40%;
+    }
+    
+    .GFG {
+        background-color: white;
+        border: 2px solid black;
+        color: green;
+        padding: 5px 10px;
+        text-align: center;
+        display: inline-block;
+        font-size: 20px;
+        margin: 10px 30px;
+        cursor: pointer;
+    }
+</style>
+
+<title>Go Vercel</title>
+
+<body>
+
+    <div class="bgimg">
+        <div class="middle">
+            <h1>Hello World, From Faridlan</h1>
+            <a href='https://go-vercel-lake.vercel.app/api' target="_blank">
+                <button class="GFG">Test Go Vercel</button>
+            </a>
+        </div>
+        <div class="bottomleft">
+            <p>- Faridlan</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
