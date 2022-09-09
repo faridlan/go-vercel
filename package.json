@@ -1,0 +1,15 @@
+{
+    "name": "go-vercel",
+    "version": "1.0.0",
+    "main": "index.js",
+    "repository": "git@github.com:faridlan/go-vercel.git",
+    "author": "faridlan <faridlannulhakim@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "vercel dev",
+        "deploy": "vercel deploy --prod"
+    },
+    "devDependencies": {
+        "vercel": "^28.2.3"
+    }
+}
