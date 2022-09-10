@@ -1,11 +1,10 @@
-package handler
+package test
 
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
-	"errors"
-	"net/http"
+	"fmt"
+	"testing"
 	"time"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -32,7 +31,8 @@ func Connection() *sql.DB {
 	return db
 }
 
-func getUser() (User, error) {
+func Test(t *testing.T) {
+
 	db := Connection()
 
 	SQL := "SELECT id,name,age FROM users"
@@ -41,36 +41,13 @@ func getUser() (User, error) {
 		panic(err)
 	}
 
-	user := User{}
 	if rows.Next() {
+		user := User{}
 		err := rows.Scan(&user.Id, &user.Name, &user.Age)
 		if err != nil {
 			panic(err)
 		}
 
-		return user, nil
-	} else {
-		return user, errors.New("user not found")
-	}
-}
-
-func Handler(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprintf(w, "<h1>Hello from Go!</h1>")
-
-	user, err := getUser()
-	if err != nil {
-		panic(err)
-	}
-	// faridlan := User{
-	// 	Id:   1,
-	// 	Name: "Faridlan",
-	// 	Age:  21,
-	// }
-
-	w.Header().Add("content-type", "application/json")
-	encode := json.NewEncoder(w)
-	err = encode.Encode(&user)
-	if err != nil {
-		panic(err)
+		fmt.Println(user)
 	}
 }
