@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
-	"errors"
 	"net/http"
 	"time"
 
@@ -32,7 +31,7 @@ func Connection() *sql.DB {
 	return db
 }
 
-func getUser() (User, error) {
+func getUser() ([]User, error) {
 	db := Connection()
 
 	SQL := "SELECT id,name,age FROM users"
@@ -41,17 +40,18 @@ func getUser() (User, error) {
 		panic(err)
 	}
 
-	user := User{}
-	if rows.Next() {
+	users := []User{}
+	for rows.Next() {
+		user := User{}
 		err := rows.Scan(&user.Id, &user.Name, &user.Age)
 		if err != nil {
-			panic(err)
+			return users, err
 		}
 
-		return user, nil
-	} else {
-		return user, errors.New("user not found")
+		users = append(users, user)
+
 	}
+	return users, nil
 }
 
 // func Handler(w http.ResponseWriter, r *http.Request) {
