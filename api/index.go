@@ -54,8 +54,27 @@ func getUser() (User, error) {
 	}
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	// fmt.Fprintf(w, "<h1>Hello from Go!</h1>")
+// func Handler(w http.ResponseWriter, r *http.Request) {
+
+// 	user, err := getUser()
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	// faridlan := User{
+// 	// 	Id:   1,
+// 	// 	Name: "Faridlan",
+// 	// 	Age:  21,
+// 	// }
+
+// 	w.Header().Add("content-type", "application/json")
+// 	encode := json.NewEncoder(w)
+// 	err = encode.Encode(&user)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// }
+
+func Hello(writer http.ResponseWriter, request *http.Request) {
 
 	user, err := getUser()
 	if err != nil {
@@ -67,10 +86,11 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	// 	Age:  21,
 	// }
 
-	w.Header().Add("content-type", "application/json")
-	encode := json.NewEncoder(w)
+	writer.Header().Add("content-type", "application/json")
+	encode := json.NewEncoder(writer)
 	err = encode.Encode(&user)
 	if err != nil {
 		panic(err)
 	}
+
 }
