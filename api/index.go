@@ -4,38 +4,51 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 
 	"github.com/faridlan/go-vercel/api/helper"
-	"github.com/faridlan/go-vercel/api/model"
 	_ "github.com/go-sql-driver/mysql"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+type User struct {
+	Id   primitive.ObjectID `bson:"_id,omitempty" json:"id,omitempty"`
+	Name string             `bson:"name,omitempty" json:"name,omitempty"`
+	Ages int                `bson:"ages,omitempty" json:"ages,omitempty"`
+}
+
+func fatalIfError(err error) {
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+}
+
 func Handler(writer http.ResponseWriter, request *http.Request) {
 
 	writer.Header().Add("content-type", "application/json")
-	user := FindAll(request.Context())
+	user := findAll(request.Context())
 
 	encode := json.NewEncoder(writer)
 	err := encode.Encode(&user)
-	helper.FatalIfError(err)
+	fatalIfError(err)
 }
 
-func FindAll(ctx context.Context) []model.User {
+func findAll(ctx context.Context) []User {
 
 	db, err := newConnection()
-	helper.FatalIfError(err)
+	fatalIfError(err)
 
 	cursor, err := db.Collection("users").Find(ctx, bson.M{})
-	helper.FatalIfError(err)
+	fatalIfError(err)
 
-	users := []model.User{}
+	users := []User{}
 	for cursor.Next(ctx) {
-		var user model.User
+		var user User
 		err := cursor.Decode(&user)
 		helper.FatalIfError(err)
 
