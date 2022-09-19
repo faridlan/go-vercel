@@ -13,4 +13,5 @@ func Handler(writer http.ResponseWriter, request *http.Request) {
 	name := os.Getenv("name")
 
 	fmt.Fprintf(writer, "Hello, %s", name)
+	fmt.Fprintf(writer, "%s", name)
 }
