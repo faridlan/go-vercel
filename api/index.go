@@ -27,32 +27,14 @@ func fatalIfError(err error) {
 	}
 }
 
-func helloWorld(writer http.ResponseWriter, request *http.Request) {
-	fmt.Fprintf(writer, "Hello world")
-}
+func Handler(writer http.ResponseWriter, request *http.Request) {
 
-func find(writer http.ResponseWriter, request *http.Request) {
 	writer.Header().Add("content-type", "application/json")
 	user := findAll(request.Context())
 
 	encode := json.NewEncoder(writer)
 	err := encode.Encode(&user)
 	fatalIfError(err)
-}
-
-func Handler(writer http.ResponseWriter, request *http.Request) {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", helloWorld)
-	mux.HandleFunc("/find", find)
-
-	server := http.Server{
-		Handler: mux,
-	}
-
-	err := server.ListenAndServe()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
 }
 
 func findAll(ctx context.Context) []User {
