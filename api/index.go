@@ -8,7 +8,6 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/faridlan/go-vercel/api/helper"
 	_ "github.com/go-sql-driver/mysql"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -50,7 +49,7 @@ func findAll(ctx context.Context) []User {
 	for cursor.Next(ctx) {
 		var user User
 		err := cursor.Decode(&user)
-		helper.FatalIfError(err)
+		fatalIfError(err)
 
 		users = append(users, user)
 	}
