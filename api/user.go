@@ -4,11 +4,12 @@ import (
 	"net/http"
 
 	"github.com/faridlan/go-vercel/api/helper"
+	"github.com/gorilla/mux"
 )
 
 func HelloWorld(writer http.ResponseWriter, request *http.Request) {
 
-	mux := http.NewServeMux()
+	r := mux.NewRouter()
 
-	mux.HandleFunc("/", helper.Hello)
+	r.HandleFunc("/", helper.Hello).Methods("GET")
 }
