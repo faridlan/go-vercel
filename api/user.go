@@ -12,4 +12,6 @@ func HelloWorld(writer http.ResponseWriter, request *http.Request) {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/", helper.Hello).Methods("GET")
+
+	http.ListenAndServe(":80", r)
 }
