@@ -7,5 +7,8 @@ import (
 )
 
 func HelloWorld(writer http.ResponseWriter, request *http.Request) {
-	helper.Hello(writer, request)
+
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/", helper.Hello)
 }
