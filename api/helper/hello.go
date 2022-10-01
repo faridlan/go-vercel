@@ -1,7 +1,12 @@
 package helper
 
-func Hello() string {
+import (
+	"fmt"
+	"net/http"
+)
 
-	return "Hello Faridlan"
+func Hello(writer http.ResponseWriter, request *http.Request) {
+
+	fmt.Fprintf(writer, "Hello Faridlan")
 
 }
